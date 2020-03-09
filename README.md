@@ -58,6 +58,7 @@ In addition to enabling the nonlocal binds, the container must be run with both 
 | `KEEPALIVED_VIRTUAL_IPADDRESS_EXCLUDED_###` |                                    |
 |        `KEEPALIVED_VIRTUAL_ROUTER_ID`       |                 `1`                |
 |      `KEEPALIVED_KUBE_APISERVER_CHECK`      |               `false`              |
+|      `KEEPALIVED_GARP_MASTER_REFRESH`       |                                    |
 
 * `KEEPALIVED_ADVERT_INT` - The VRRP advertisement interval (in seconds).
 
@@ -83,6 +84,8 @@ In addition to enabling the nonlocal binds, the container must be run with both 
 * `KEEPALIVED_VIRTUAL_ROUTER_ID` - A unique number from 0 to 255 that should identify the VRRP group. Master and Backup should have the same value. Multiple instances of keepalived can be run on the same host, but each pair **MUST** have a unique virtual router id.
 
 * `KEEPALIVED_KUBE_APISERVER_CHECK` -  If enabled it configures a simple check script for the Kubernetes API-Server. For more information on this feature, please see the [Kubernetes Options](#kubernetes-options) section.
+
+* `KEEPALIVED_GARP_MASTER_REFRESH` - If set it configures the minimum time interval for refreshing gratuitous ARPs while MASTER in seconds.
 
 
 ### Kubernetes Options

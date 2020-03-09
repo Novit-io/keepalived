@@ -31,6 +31,9 @@ config_keepalived() {
   {
     echo 'global_defs {'
     echo 'router_id LVS_MAIN'
+    if [[ "${KEEPALIVED_GARP_MASTER_REFRESH}" != '' ]]; then
+        echo "vrrp_garp_master_refresh ${KEEPALIVED_GARP_MASTER_REFRESH}"
+    fi
     echo '}'
   } > "$KEEPALIVED_CONF"
 
@@ -67,7 +70,10 @@ config_keepalived() {
     echo '  unicast_peer {'
   } >> "$KEEPALIVED_CONF"
   for peer in $(compgen -A variable | grep -E "KEEPALIVED_UNICAST_PEER_[0-9]{1,3}"); do
-    echo "    ${!peer}" >> "$KEEPALIVED_CONF"
+    peer_ip=${!peer}
+    if [[ ${peer_ip} != ${KEEPALIVED_UNICAST_SRC_IP} ]]; then
+      echo "    ${peer_ip}" >> "$KEEPALIVED_CONF"
+    fi
   done
   {
     echo '  }'
